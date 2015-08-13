@@ -1,5 +1,5 @@
 /**
- * Angular nestable 0.0.1
+ * Angular nestable 0.0.3
  * Copyright (c) 2014 Kamil Pekala
  * https://github.com/kamilkp/ng-nestable
  */
@@ -204,6 +204,7 @@
 				// create nested hierarchy
 				var rootList = $('<ol class="dd-list"></ol>').appendTo(root);
 				var draggableHandle = $nestable.enableDraggableHandle;
+				var hierarchyLevel = 1;
 				model.forEach(function f(item){
 					var list = Array.prototype.slice.call(arguments).slice(-1)[0];
 					if(!(list instanceof $)) list = rootList;
@@ -212,13 +213,12 @@
 					var content = $('<div ng-nestable-item class="dd3-content"></div>');
 
 				    if (draggableHandle) {
-				        listItem = $('<li class="dd-item dd3-item"></li>');
+				        listItem = $('<li class="dd-item dd3-item" data-hierarchy-level="' + hierarchyLevel + '"></li>');
 				        listElement = $('<div class="dd-handle dd3-handle">&nbsp;</div>');
 				        listElement.appendTo(listItem);
 				        content.append(tpl).appendTo(listItem);
-
 				    } else {
-				        listItem = $('<li class="dd-item"></li>');
+				        listItem = $('<li class="dd-item" data-hierarchy-level="' + hierarchyLevel + '"></li>');
 				        listElement = $('<div ng-nestable-item class="dd-handle"></div>');
 				        listElement.append(tpl).appendTo(listItem);
 				    }
@@ -230,7 +230,9 @@
 					if(isArray(children) && children.length > 0){
 						var subRoot = $('<ol class="dd-list"></ol>').appendTo(listItem);
 						children.forEach(function(item){
+							hierarchyLevel++;
 							f.apply(this, Array.prototype.slice.call(arguments).concat([subRoot]));
+							hierarchyLevel--;
 						});
 					}
 				});
