@@ -60,6 +60,7 @@
 			var childrenProperty = 'children';
 			var collapseAllOnStart = false;
 			var defaultOptions = {};
+			var enableDraggableHandle = false;
 
 			this.$get = function(){
 				return {
@@ -67,7 +68,8 @@
 					itemProperty: itemProperty,
 					childrenProperty: childrenProperty,
 					collapseAllOnStart: collapseAllOnStart,
-					defaultOptions: defaultOptions
+					defaultOptions: defaultOptions,
+					enableDraggableHandler: enableDraggableHandle
 				};
 			};
 
@@ -141,11 +143,13 @@
 			};
 
 
-		    /**
+		    	/**
 			 * Flag to turn on/off draggable handle
 			 * @param  {[string]} value
 			 */
-	        this.enableDraggableHandle = false;
+	        	this.enableDraggableHandle = function(value) {
+	        		enableDraggableHandle = value;
+	        	};
 	    })
 		.directive('ngNestable', ['$compile', '$nestable', function($compile, $nestable){
 			return {
