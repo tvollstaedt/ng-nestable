@@ -69,7 +69,7 @@
 					childrenProperty: childrenProperty,
 					collapseAllOnStart: collapseAllOnStart,
 					defaultOptions: defaultOptions,
-					enableDraggableHandler: enableDraggableHandle
+					enableDraggableHandle: enableDraggableHandle
 				};
 			};
 
